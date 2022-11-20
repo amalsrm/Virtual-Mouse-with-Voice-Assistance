@@ -253,3 +253,4 @@ while True:
             # some other exception got raised
             print("EXCEPTION raised while closing.")
             break
+            
