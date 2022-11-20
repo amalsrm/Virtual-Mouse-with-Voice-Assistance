@@ -87,11 +87,11 @@ class HandRecog:
         self.finger = self.finger | 0  # thumb
         for idx, point in enumerate(points):
 
-            dist = self.get_signed_dist(point[:2])
+            dist1 = self.get_signed_dist(point[:2])
             dist2 = self.get_signed_dist(point[1:])
 
             try:
-                ratio = round(dist / dist2, 1)
+                ratio = round(dist1 / dist2, 1)
             except:
                 ratio = round(dist1 / 0.01, 1)
 
@@ -366,7 +366,7 @@ class GestureController:
         handmajor = HandRecog(HLabel.MAJOR)
         handminor = HandRecog(HLabel.MINOR)
 
-        with mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.5, min_tracking_confidence=0.5) as hands:
+        with mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.5, min_tracking_confidence=0.5) as hands:
             while GestureController.cap.isOpened() and GestureController.gc_mode:
                 success, image = GestureController.cap.read()
 
@@ -405,8 +405,5 @@ class GestureController:
                     break
         GestureController.cap.release()
         cv2.destroyAllWindows()
-
-
-# uncomment to run directly
 gc1 = GestureController()
 gc1.start()
